@@ -38,6 +38,9 @@ func main() {
 	protected.POST("/sales_list", controllers.SalesList)
 	protected.POST("/sales_list_detail", controllers.SalesListDetail)
 	protected.POST("/change_status", controllers.ChangeTenantRefCode)
+	protected.POST("/sales_list_realtime", controllers.SalesListRealTime)
+	protected.POST("/sales_list_detail_realtime", controllers.SalesListDetailRealTime)
+	protected.POST("/product_list_realtime", controllers.ProductListRealTime)
 	
 	fmt.Printf("Listening to port %s", os.Getenv("PORT1"))
 	router.Run(":" + os.Getenv("PORT1"))

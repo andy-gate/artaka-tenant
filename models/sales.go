@@ -9,11 +9,11 @@ type Sales struct {
 	Tenant_name      string          `json:"tenant_name"`
 	Create_dtm       string       	 `json:"create_dtm"`
 	Total_trx		 int			 `json:"total_trx"`
-	Total_amount	 int64			 `json:"total_amount"`
+	Total_amount	 int			 `json:"total_amount"`
 }
 
 type SalesDetail struct {
-	ID               uint            `gorm:"primary_key;auto_increment" json:"id"`
+	ID               string          `json:"id"`
 	Create_dtm       time.Time       `json:"create_dtm"`
 	Sales_id         string          `json:"sales_id"`
 	User_id          string          `json:"user_id"`
@@ -41,4 +41,13 @@ type QuerySales struct {
 	Outlet_id        string          `json:"outlet_id"`
 	Start_date		 string			 `json:"start_date"`
 	End_date		 string			 `json:"end_date"`
+}
+
+type QuerySalesRealTime struct {
+	User_id          string          `json:"user_id"`
+	Outlet_id        string          `json:"outlet_id"`
+	Sales_type		 string			 `json:"sales_type"`
+	Payment_due_date string			 `json:"payment_due_date"`
+	Payment_method	 string			 `json:"payment_method"`
+	Notes			 string			 `json:"notes"`
 }
