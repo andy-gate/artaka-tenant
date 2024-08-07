@@ -1,6 +1,9 @@
 package models
 
-import "time"
+import (
+	"encoding/json"
+	"time"
+)
 
 type Product struct {
 	User_id          string   `json:"user_id"`
@@ -29,7 +32,7 @@ type ProductRealtime struct {
 	SellCost          int       `json:"sell_cost"`
 	ModifiersID       string    `json:"modifiers_id"`
 	Images            []string  `json:"images"`
-	Rawmaterial       []any     `json:"rawmaterial"`
+	Rawmaterial       json.RawMessage     `json:"rawmaterial"`
 	IsStockTracked    string    `json:"is_stock_tracked"`
 	NumberSold        int       `json:"number_sold"`
 	Outlets           []string  `json:"outlets"`

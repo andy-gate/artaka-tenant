@@ -26,10 +26,10 @@ func main() {
 	gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
 
-	api := router.Group("/api")
+	api := router.Group("/api_tenant")
 	api.POST("/login", controllers.Login)
 
-	protected:= router.Group("/api/admin")
+	protected:= router.Group("/api_tenant/admin")
 	protected.Use(middlewares.JwtAuthMiddleware())
 	protected.POST("/tenant_list", controllers.TenantList)
 	protected.POST("/tenant_list_dropdown", controllers.ActiveTenantList)
