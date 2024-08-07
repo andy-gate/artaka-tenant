@@ -68,3 +68,22 @@ func ChangeTenantRefCode(c *gin.Context) {
   
 	c.JSON(http.StatusOK, tenant)
 }
+
+func GetTenantFromList(c *gin.Context) {
+	c.Header("Content-Type", "application/json")
+	c.Header("Access-Control-Allow-Origin", "*")
+
+	var tenants []models.Tenant
+  
+	if err := models.MPosGORM.Raw("SELECT * from registered_tenant").Scan(&tenants).Error; err != nil {
+		fmt.Printf("error list tenant: %3v \n", err)
+		c.AbortWithStatus(http.StatusInternalServerError)
+		return
+	}
+  
+	if (tenants != nil) {
+	  c.JSON(http.StatusOK, tenants)
+	} else {
+	  c.JSON(http.StatusOK, json.RawMessage(`[]`))
+	}
+}
