@@ -18,4 +18,5 @@ type TenantRT struct {
 	Outlet_id		 string	  `json:"outlet_id"`
 	Nama       		 string   `json:"nama"`
 	Status			 int	  `json:"status"`
+	Changed_status	 int	  `json:"changed_status"`
 }
