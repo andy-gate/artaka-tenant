@@ -113,8 +113,16 @@ func ChangeTenantStatus(c *gin.Context) {
   
 	var tenant models.TenantRT
 	c.BindJSON(&tenant)
+
+	var updatedStatus int
   
-	if err := models.MPosGORM.Raw("UPDATE registered_tenant SET status = ? WHERE user_id = ? RETURNING user_id", tenant.User_id).Scan(&tenant).Error; err != nil {
+	if(tenant.Status == 1){
+		updatedStatus = 0
+	} else {
+		updatedStatus = 1
+	}
+	
+	if err := models.MPosGORM.Raw("UPDATE registered_tenant SET status = ? WHERE user_id = ? RETURNING user_id", updatedStatus, tenant.User_id).Scan(&tenant).Error; err != nil {
 		fmt.Printf("error list tenant: %3v \n", err)
 		c.AbortWithStatus(http.StatusInternalServerError)
 		return
