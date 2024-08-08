@@ -73,7 +73,7 @@ func GetTenantFromList(c *gin.Context) {
 	c.Header("Content-Type", "application/json")
 	c.Header("Access-Control-Allow-Origin", "*")
 
-	var tenants []models.Tenant
+	var tenants []models.TenantRT
   
 	if err := models.MPosGORM.Raw("SELECT * from registered_tenant").Scan(&tenants).Error; err != nil {
 		fmt.Printf("error list tenant: %3v \n", err)
@@ -86,4 +86,39 @@ func GetTenantFromList(c *gin.Context) {
 	} else {
 	  c.JSON(http.StatusOK, json.RawMessage(`[]`))
 	}
+}
+
+func GetActiveTenantFromList(c *gin.Context) {
+	c.Header("Content-Type", "application/json")
+	c.Header("Access-Control-Allow-Origin", "*")
+
+	var tenants []models.TenantRT
+  
+	if err := models.MPosGORM.Raw("SELECT * from registered_tenant where status = 1").Scan(&tenants).Error; err != nil {
+		fmt.Printf("error list tenant: %3v \n", err)
+		c.AbortWithStatus(http.StatusInternalServerError)
+		return
+	}
+  
+	if (tenants != nil) {
+	  c.JSON(http.StatusOK, tenants)
+	} else {
+	  c.JSON(http.StatusOK, json.RawMessage(`[]`))
+	}
+}
+
+func ChangeTenantStatus(c *gin.Context) {
+	c.Header("Content-Type", "application/json")
+	c.Header("Access-Control-Allow-Origin", "*")
+  
+	var tenant models.TenantRT
+	c.BindJSON(&tenant)
+  
+	if err := models.MPosGORM.Raw("UPDATE registered_tenant SET status = ? WHERE user_id = ? RETURNING user_id", tenant.User_id).Scan(&tenant).Error; err != nil {
+		fmt.Printf("error list tenant: %3v \n", err)
+		c.AbortWithStatus(http.StatusInternalServerError)
+		return
+	}
+  
+	c.JSON(http.StatusOK, tenant)
 }
