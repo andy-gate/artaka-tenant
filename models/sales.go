@@ -51,3 +51,9 @@ type QuerySalesRealTime struct {
 	Payment_method	 string			 `json:"payment_method"`
 	Notes			 string			 `json:"notes"`
 }
+
+type SalesRT struct {
+	Create_dtm       string       	 `json:"create_dtm"`
+	Total_trx		 int			 `json:"total_trx"`
+	Total_amount	 int			 `json:"total_amount"`
+}

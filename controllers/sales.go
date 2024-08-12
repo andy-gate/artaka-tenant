@@ -86,7 +86,7 @@ func SalesListRealTime(c *gin.Context){
 
 	defer resp.Body.Close()
 
-	var sales []models.Sales
+	var sales []models.SalesRT
 
 	var salesData []models.SalesDetail
   	body, _ := io.ReadAll(resp.Body)
@@ -102,7 +102,7 @@ func SalesListRealTime(c *gin.Context){
 		for _, n := range collections[k]{
 			total_amount += n.Total_bill
 		}
-        sales = append(sales, models.Sales{Create_dtm: k, Total_trx: total_trx, Total_amount: total_amount})
+        sales = append(sales, models.SalesRT{Create_dtm: k, Total_trx: total_trx, Total_amount: total_amount})
 		i++
     }
 	if (sales != nil) {
